@@ -6,7 +6,7 @@ const pathModule = window.require('path')
 
 const { app } = window.require('@electron/remote')
 
-const formatSize = size => {
+const formatSize = (size: number) => {
   var i = Math.floor(Math.log(size) / Math.log(1024))
   return (
     (size / Math.pow(1024, i)).toFixed(2) * 1 +
@@ -22,7 +22,7 @@ function App() {
     () =>
       fs
         .readdirSync(path)
-        .map(file => {
+        .map((file: any) => {
           const stats = fs.statSync(pathModule.join(path, file))
           return {
             name: file,
@@ -30,7 +30,7 @@ function App() {
             directory: stats.isDirectory()
           }
         })
-        .sort((a, b) => {
+        .sort((a: { directory: any; name: string }, b: { directory: any; name: any }) => {
           if (a.directory === b.directory) {
             return a.name.localeCompare(b.name)
           }
@@ -40,10 +40,10 @@ function App() {
   )
 
   const onBack = () => setPath(pathModule.dirname(path))
-  const onOpen = folder => setPath(pathModule.join(path, folder))
+  const onOpen = (folder: any) => setPath(pathModule.join(path, folder))
 
   const [searchString, setSearchString] = useState('')
-  const filteredFiles = files.filter(s => s.name.startsWith(searchString))
+  const filteredFiles = files.filter((s: { name: string }) => s.name.startsWith(searchString))
 
   return (
     <div className="container mt-2">
@@ -56,7 +56,7 @@ function App() {
           placeholder="File search"
         />
       </div>
-      <FilesViewer files={filteredFiles} onBack={onBack} onOpen={onOpen} />
+      <FilesViewer files={filteredFiles} onBack={onBack} onOpen={onOpen} name={''} directory={''} size={0} />
     </div>
   )
 }

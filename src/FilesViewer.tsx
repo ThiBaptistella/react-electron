@@ -1,7 +1,16 @@
 import { IconFolder, IconFile, IconFolderOpen } from './Icons'
 
-export const FilesViewer = ({ files, onBack, onOpen }) => (
-  <table className="table" key={files}>
+interface Resp {
+  files: [],
+  onBack: () => void
+  onOpen: (name: string) => void
+  name: string
+  directory: string
+  size: number
+}
+
+export const FilesViewer = ({ files, onBack, onOpen, name, directory, size } : Resp) => (
+  <table className="table" key={name}>
     <tbody>
       <tr className="clickable" onClick={onBack}>
         <td className="icon-row">
