@@ -2,8 +2,8 @@ import { IconFolder, IconFile, IconFolderOpen } from './Icons'
 
 interface Resp {
   files: [],
-  onBack: () => void
-  onOpen: (name: string) => void
+  onBack?: () => void
+  onOpen?: (name: string) => void
   name: string
   directory: string
   size: number
@@ -22,7 +22,7 @@ export const FilesViewer = ({ files, onBack, onOpen, name, directory, size } : R
 
       {files.map(({ name, directory, size }) => {
         return (
-          <tr key={name} className="clickable" onClick={() => directory && onOpen(name)}>
+          <tr key={name} className="clickable" onClick={() => directory && onOpen?.(name)}>
             <td className="icon-row">
               {directory ? <IconFolder /> : <IconFile />}
             </td>
